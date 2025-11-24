@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QLDKMHModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameUser" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RoleUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="PasswordUser" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DeptCode" />
+          </Key>
+          <Property Name="DeptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeptCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="DeptName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Enrollment">
+          <Key>
+            <PropertyRef Name="EnrollID" />
+          </Key>
+          <Property Name="EnrollID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EnrollDate" Type="date" />
+          <Property Name="StudentID" Type="int" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="EnrollmentDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectID" Type="int" />
+          <Property Name="EnrollID" Type="int" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="15" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectName" Type="nvarchar" MaxLength="200" />
+          <Property Name="DeptCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="Credits" Type="int" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="ClassTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="Capacity" Type="int" />
+          <Property Name="Classroom" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK__Enrollmen__Enrol__45F365D3">
+          <End Role="Enrollment" Type="Self.Enrollment" Multiplicity="0..1" />
+          <End Role="EnrollmentDetail" Type="Self.EnrollmentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Enrollment">
+              <PropertyRef Name="EnrollID" />
+            </Principal>
+            <Dependent Role="EnrollmentDetail">
+              <PropertyRef Name="EnrollID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Enrollmen__Stude__412EB0B6">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="Enrollment" Type="Self.Enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Enrollment">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Enrollmen__Subje__44FF419A">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+          <End Role="EnrollmentDetail" Type="Self.EnrollmentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="EnrollmentDetail">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subject_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DeptCode" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="DeptCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLDKMHModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enrollment" EntityType="Self.Enrollment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EnrollmentDetail" EntityType="Self.EnrollmentDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Enrollmen__Enrol__45F365D3" Association="Self.FK__Enrollmen__Enrol__45F365D3">
+            <End Role="Enrollment" EntitySet="Enrollment" />
+            <End Role="EnrollmentDetail" EntitySet="EnrollmentDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Enrollmen__Stude__412EB0B6" Association="Self.FK__Enrollmen__Stude__412EB0B6">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Enrollment" EntitySet="Enrollment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Enrollmen__Subje__44FF419A" Association="Self.FK__Enrollmen__Subje__44FF419A">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="EnrollmentDetail" EntitySet="EnrollmentDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subject_Department" Association="Self.FK_Subject_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Subject" EntitySet="Subject" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QLDKMHModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameUser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordUser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DeptCode" />
+          </Key>
+          <Property Name="DeptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeptCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DeptName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Subjects" Relationship="Self.FK_Subject_Department" FromRole="Department" ToRole="Subject" />
+        </EntityType>
+        <EntityType Name="Enrollment">
+          <Key>
+            <PropertyRef Name="EnrollID" />
+          </Key>
+          <Property Name="EnrollID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EnrollDate" Type="DateTime" Precision="0" />
+          <Property Name="StudentID" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EnrollmentDetails" Relationship="Self.FK__Enrollmen__Enrol__45F365D3" FromRole="Enrollment" ToRole="EnrollmentDetail" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Enrollmen__Stude__412EB0B6" FromRole="Enrollment" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="EnrollmentDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectID" Type="Int32" />
+          <Property Name="EnrollID" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Enrollment" Relationship="Self.FK__Enrollmen__Enrol__45F365D3" FromRole="EnrollmentDetail" ToRole="Enrollment" />
+          <NavigationProperty Name="Subject" Relationship="Self.FK__Enrollmen__Subje__44FF419A" FromRole="EnrollmentDetail" ToRole="Subject" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Enrollments" Relationship="Self.FK__Enrollmen__Stude__412EB0B6" FromRole="Student" ToRole="Enrollment" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DeptCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Credits" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="ClassTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Capacity" Type="Int32" />
+          <Property Name="Classroom" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_Subject_Department" FromRole="Subject" ToRole="Department" />
+          <NavigationProperty Name="EnrollmentDetails" Relationship="Self.FK__Enrollmen__Subje__44FF419A" FromRole="Subject" ToRole="EnrollmentDetail" />
+        </EntityType>
+        <Association Name="FK_Subject_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DeptCode" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="DeptCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Enrollmen__Enrol__45F365D3">
+          <End Role="Enrollment" Type="Self.Enrollment" Multiplicity="0..1" />
+          <End Role="EnrollmentDetail" Type="Self.EnrollmentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Enrollment">
+              <PropertyRef Name="EnrollID" />
+            </Principal>
+            <Dependent Role="EnrollmentDetail">
+              <PropertyRef Name="EnrollID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Enrollmen__Stude__412EB0B6">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="Enrollment" Type="Self.Enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Enrollment">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Enrollmen__Subje__44FF419A">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+          <End Role="EnrollmentDetail" Type="Self.EnrollmentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="EnrollmentDetail">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLDKMHEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="Enrollments" EntityType="Self.Enrollment" />
+          <EntitySet Name="EnrollmentDetails" EntityType="Self.EnrollmentDetail" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="Subjects" EntityType="Self.Subject" />
+          <AssociationSet Name="FK_Subject_Department" Association="Self.FK_Subject_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Subject" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Enrollmen__Enrol__45F365D3" Association="Self.FK__Enrollmen__Enrol__45F365D3">
+            <End Role="Enrollment" EntitySet="Enrollments" />
+            <End Role="EnrollmentDetail" EntitySet="EnrollmentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Enrollmen__Stude__412EB0B6" Association="Self.FK__Enrollmen__Stude__412EB0B6">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Enrollment" EntitySet="Enrollments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Enrollmen__Subje__44FF419A" Association="Self.FK__Enrollmen__Subje__44FF419A">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="EnrollmentDetail" EntitySet="EnrollmentDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QLDKMHModelStoreContainer" CdmEntityContainer="QLDKMHEntities">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="QLDKMHModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NameUser" ColumnName="NameUser" />
+                <ScalarProperty Name="RoleUser" ColumnName="RoleUser" />
+                <ScalarProperty Name="PasswordUser" ColumnName="PasswordUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="QLDKMHModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+                <ScalarProperty Name="DeptCode" ColumnName="DeptCode" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enrollments">
+            <EntityTypeMapping TypeName="QLDKMHModel.Enrollment">
+              <MappingFragment StoreEntitySet="Enrollment">
+                <ScalarProperty Name="EnrollID" ColumnName="EnrollID" />
+                <ScalarProperty Name="EnrollDate" ColumnName="EnrollDate" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EnrollmentDetails">
+            <EntityTypeMapping TypeName="QLDKMHModel.EnrollmentDetail">
+              <MappingFragment StoreEntitySet="EnrollmentDetail">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="EnrollID" ColumnName="EnrollID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="QLDKMHModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjects">
+            <EntityTypeMapping TypeName="QLDKMHModel.Subject">
+              <MappingFragment StoreEntitySet="Subject">
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="DeptCode" ColumnName="DeptCode" />
+                <ScalarProperty Name="Credits" ColumnName="Credits" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="ClassTime" ColumnName="ClassTime" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="Classroom" ColumnName="Classroom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

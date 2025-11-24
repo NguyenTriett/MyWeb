@@ -1,0 +1,113 @@
+﻿@model WebTruong.Models.Subject
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Xac nhan xoa san pham</h2>
+@using (Html.BeginForm("Delete", "MonHoc", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+ <table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(m => m.SubjectID)</th>
+        <td>@Html.EditorFor(m => m.SubjectID)</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(m => m.SubjectID)
+        </td>
+
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(m => m.SubjectName)</th>
+        <td>@Html.EditorFor(m => m.SubjectName)</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(m => m.SubjectName)
+        </td>
+
+    </tr>
+    @*<tr>
+            <th>@Html.DisplayNameFor(m => m.DeptCode)</th>
+            <td>@Html.EditorFor(m => m.DeptCode)</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(m => m.DeptCode)
+            </td>
+
+        </tr>*@
+    <tr>
+        <th>@Html.DisplayNameFor(m => m.Credits)</th>
+        <td>@Html.EditorFor(m => m.Credits)</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(m => m.Credits)
+        </td>
+
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(m => m.StartDate)</th>
+        <td>@Html.EditorFor(m => m.StartDate)</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(m => m.StartDate)
+        </td>
+
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(m => m.ClassTime)</th>
+        <td>@Html.EditorFor(m => m.ClassTime)</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(m => m.ClassTime)
+        </td>
+
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(m => m.Capacity)</th>
+        <td>@Html.EditorFor(m => m.Capacity)</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(m => m.Capacity)
+        </td>
+
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(m => m.Classroom)</th>
+        <td>@Html.EditorFor(m => m.Classroom)</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(m => m.Classroom)
+        </td>
+
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="Detele" class="btn btn-danger" />
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="color:red;">
+            @if (ViewBag.errDetete != null)
+            {
+                @ViewBag.errDetete;
+
+            }
+        </td>
+    </tr>
+
+</table>
+}
+@Html.ActionLink("Quay về danh sách", "Index", null, new { @class = "btn btn-warning" })
+
+

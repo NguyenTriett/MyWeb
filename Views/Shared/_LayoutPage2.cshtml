@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng ký môn học</title>
+    <style>
+        /* --- Định dạng chung --- */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        /* Header: logo + tìm kiếm + đăng nhập */
+        .header {
+            background-color: #f1f1f1;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .search-box input[type="text"] {
+            padding: 5px;
+        }
+
+        .login a {
+            text-decoration: none;
+            color: #007bff;
+            margin-left: 15px;
+        }
+        /* Menu ngang */
+        .menu {
+            background-color: #007bff;
+            overflow: hidden;
+        }
+
+            .menu a {
+                float: left;
+                color: white;
+                text-align: center;
+                padding: 12px 16px;
+                text-decoration: none;
+            }
+
+                .menu a:hover {
+                    background-color: #0056b3;
+                }
+        /* Phần nội dung */
+        .content {
+            padding: 20px;
+            min-height: 300px; /* chỉ để demo */
+        }
+        /* Footer */
+        .footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <img src="~/HinhAnh/Ảnh và logo trường Huflit.png" />
+        </div>
+
+        <div class="search-box">
+            <input type="text" placeholder="Tìm kiếm...">
+            <button>Tìm</button>
+        </div>
+
+        <div class="login">
+            <a href="#">Dang nhập</a>
+        </div>
+    </div>
+
+    <!-- Menu ngang -->
+    <div class="menu">
+        <a href="#">Trang chủ</a>
+        <a href="@Url.Action("Index","MonHoc")">Đăng ký môn</a>
+        <a href="#">Thời khóa biểu</a>
+        <a href="#">Sinh viên</a>
+        <a href="#">Giang viên</a>
+        <a href="=#">Giới thiệu</a>
+    </div>
+
+    <!-- Content body -->
+    @*<div class="content">
+            <h2>Nội dung trang</h2>
+            <p>Đây là nơi bạn sẽ điền thông tin của từng trang (ví dụ danh sách môn học, lịch học…).</p>
+        </div>
+        </div>*@
+
+    <!-- Đây là chỗ nội dung View con được chèn vào -->
+    <div class="content">
+        @RenderBody()
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        © 2025 – Trường đại học ngoại ngữ tin học – <a href="https://huflit.edu.vn/vi/">Liên hệ</a>
+
+    </div>
+
+</body>
+</html>
+

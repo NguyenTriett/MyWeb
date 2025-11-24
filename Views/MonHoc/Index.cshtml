@@ -1,0 +1,46 @@
+﻿@model IEnumerable<WebTruong.Models.Subject>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<h2>Danh sach san pham</h2> 
+@Html.ActionLink("Thêm mới", "Create", null, new { @class = "btn btn-success" }) 
+@using (Html.BeginForm("Index", "Product"))
+{
+    <input type="number" name="_min" value="1" />
+    <input type="number" name="_max" value="1" />
+    <input type="submit" value="Filter" />
+} <table class="table"> 
+    <tr> 
+        <th>@Html.DisplayNameFor(m => m.SubjectID)</th> 
+        <th>@Html.DisplayNameFor(m => m.SubjectName)</th>
+        <th>@Html.DisplayNameFor(m => m.DeptCode)</th>
+        <th>@Html.DisplayNameFor(m => m.Credits)</th>
+        <th>@Html.DisplayNameFor(m=>m.StartDate)</th>
+        <th>@Html.DisplayNameFor(m => m.ClassTime)</th>
+        <th>@Html.DisplayNameFor(m => m.Capacity)</th>
+        <th>@Html.DisplayNameFor(m => m.Classroom)</th>
+        <td></td>
+        </tr>
+    @foreach (var pro in Model)
+{
+        <tr>
+            <td>@Html.DisplayFor(m => pro.SubjectID)</td>
+            <td>@Html.DisplayFor(m => pro.SubjectName)</td>
+            <td>@Html.DisplayFor(m => pro.DeptCode)</td>
+            <td>@Html.DisplayFor(m => pro.Credits)</td>
+            <td>@Html.DisplayFor(m=> pro.StartDate)</td>
+            <td>@Html.DisplayFor(m => pro.ClassTime)</td>
+            <td>@Html.DisplayFor(m => pro.Capacity)</td>
+            <td>@Html.DisplayFor(m => pro.Classroom)</td>
+            <td> 
+                @Html.ActionLink("Edit", "Edit", new { id = pro.SubjectID }, new { @class = "btn btn-warning" }) 
+                @Html.ActionLink("Delete", "Delete", new { id = pro.SubjectID }, new { @class = "btn btn-dark" }) 
+            </td>
+            </tr>
+            } 
+    </table>
